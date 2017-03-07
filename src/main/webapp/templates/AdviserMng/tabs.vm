@@ -1,0 +1,6 @@
+﻿<ul class="nav nav-tabs">
+  <li id="tabAdv" style="margin-left:30px;"><a href="/manage/AdviserMng/list">AdviserMng</a></li>
+  <li id="tabOrg"><a href="/manage/AdviserMng/org/list">Organisation</a></li>
+  <li id="tabAppass"><a href="/manage/AdviserMng/appass/list">Applications Assign</a></li>
+  <li id="tabAdvPer"><a href="/manage/AdviserMng/adviserPer/list">Adviser Performance</a></li>
+</ul>

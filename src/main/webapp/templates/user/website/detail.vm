@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--网站用户详情</title>
+    
+	
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	<script src="/manage/resources/js/jquery-1.9.1.js"></script>
+	<script src="/manage/resources/js/jquery.form.js"></script>
+	<script src="/manage/resources/js/jquery.imgareaselect.pack.js"></script>
+	<script src="/manage/resources/js/admin/user.js"></script>
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">用户管理 &nbsp; > &nbsp; 网站用户详情</h3>
+		
+			########### Tabs ################
+			<ul class="nav nav-tabs">
+    		  <li id="tabManagerUser" style="margin-left:30px;"><a href="/manage/usr/list">后台用户</a></li>
+			  <li id="tabWebsiteCfp"><a href="/manage/usr/website/list?type=1">理财师</a></li>
+			  <li id="tabWebsiteInvest"><a href="/manage/usr/website/list?type=0">投资者</a></li>
+    		</ul>
+			<br>
+				
+			#############center content##############
+			  <div class="table-responsive" style="min-height:360px;">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th width="150" height="30">用户ID</th>
+							<input type="hidden" value="$!{usrVo.id}" id="usrVoId">
+							<td>$!{usrVo.id}</td>
+						</tr>						
+						<tr>
+							<th width="150" height="30">登录ID</th>
+							<td>$!{usrVo.loginId}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户昵称</th>
+							<td>$!{usrVo.nickName}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">真实姓名</th>
+							<td>$!{usrVo.realName}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">电子邮件</th>
+							<td>$!{usrVo.email}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">手机号码</th>
+							<td>$!{usrVo.mobile}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户头像URL</th>
+							<td><img src="#if($!{userVo.headIcon}) $!{usrVo.headIcon} #else $!{staticServer}/res/images/person_tx.png #end"  height="100" /></td>
+						</tr>
+						<tr>
+							<th width="150" height="30">身份证号码</th>
+							<td>$!{usrVo.idNumber}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户类型</th>
+							<td>
+								#if($!usrVo.type == 1) 
+									理财师   
+								#elseif($!usrVo.type == 2) 
+									网站主  
+								#else  
+									投资者  
+								#end
+							</td>
+						</tr>
+					#if($!{usrVo.type} == 1)
+						<tr>
+							<th width="150" height="30">理财师名片</th>
+							<td>
+								#if($!{fileUploadVo.fileUrl})
+									<img src="$!{fileUploadVo.fileUrl}" height="100" />
+								#end
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">邀请码</th>
+							<td>$!usrVo.inviteCode</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">理财师名片审核</th>
+							<td>
+								#if($!{usrVo.isApproved} == 0)
+									<input type="button" value="审核通过" onclick="sureVerify(1)">
+									<input type="button" value="审核失败" onclick="sureVerify(2)">
+								#elseif($!{usrVo.isApproved} == 1)
+									已审核通过
+								#else
+									审核失败
+								#end
+							</td>
+						</tr>
+					#end
+						<tr>
+							<th width="150" height="30">注册时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!usrVo.createTime)</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">直接推荐人</th>
+							<td>$!{usrVo.usrIdReferLoginId}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">二级推荐人</th>
+							<td>$!{usrVo.usrIdReferSuperLoginId}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户状态</th>
+							<td>
+								#if($!usrVo.status == 1) <font color="green">正常</font>  
+								#elseif($!usrVo.status == 2) <font color="red">停用</font>
+								#elseif($!usrVo.status == 3) <font color="red">已删除</font>
+								#elseif($!usrVo.status == 4) <font color="red">已锁定</font>
+								#end
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">更新时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!{usrVo.updateTime})</td>
+						</tr>
+					</tbody>
+				</table>							
+			  </div>
+			  
+			  <center>
+				<div>
+					<button type="button" class="btn btn-default" id="btnBack" onclick="javascript:history.go(-1);" name="btnBack">返回</button>
+				</div>
+			  </center>
+			
+			
+			#############center content##############
+			
+		</div>
+		
+      </div>
+	  
+      <div class="footer">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

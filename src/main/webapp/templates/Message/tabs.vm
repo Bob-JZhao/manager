@@ -1,0 +1,4 @@
+﻿<ul class="nav nav-tabs">
+  <li id="tabMess" style="margin-left:30px;"><a href="/manage/Message/list">MessageMng</a></li>
+  
+</ul>

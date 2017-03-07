@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--设置产品进度</title>
+	
+	<link href="/manage/resources/css/product.css" rel="stylesheet">
+		
+  <body>
+
+    #parse("common/header.vm")
+	
+    </head>
+<script>
+function check(){
+   var total =  parseInt($("#totalAmountValue").val());
+    var soldAmount =  parseInt($("#soldAmount").val());
+	var isSplit = $("#isSplit").val();
+	var prodType =   $("#prodType").val() ;
+	 if(soldAmount >= total){
+	 	if(isSplit == 0 && prodType != 0){
+		   alert("请点击设置起息时间，即可完成产品满标设置！");
+		   return false ;
+		}
+	 	else if(!confirm("当前的已售金额大于等于产品规模，确认后设置后产品变为满标状态，确定要做此操作吗?")){
+			return false ;
+			// 拆单  
+		}
+	 }
+	 $("#productForm").submit();
+	  
+}
+</script>
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        <input type="hidden" name="url" id="url" value="$!{url}"/>
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">产品管理 &nbsp; > &nbsp; 设置产品进度</h3>
+			
+			###########################
+			<div>
+				
+				<form class="form-horizontal" id="productForm" method="post" action="/manage/prd/submitProgress">
+    				<input type="hidden" name="prodId" id="id" val="$!{product.id}" value="$!{product.id}" readonly />
+					<input type="hidden" name="prodType" id="prodType"   value="$!{product.prdType}" readonly />
+					<input type="hidden" name="isSplit" id="isSplit"   value="$!{product.isSplit}" readonly />
+					<input type="hidden" name="totalAmountValue" id="totalAmountValue"   value="$!{productProgressVo.totalAmount}" readonly />
+    				<input type="hidden" name="url" value="$!{url}"/>
+					#if ($!errMsg)
+						<div>
+							<center><span><font style="color:red">$!errMsg</font></span></center>
+						</div>
+					#end
+					<div class="form-group">
+    				    <label for="prodName" class="col-sm-2 control-label">产品名称</label>
+    				    <div class="col-sm-10">
+							<input type="text" style="border:none;background:#FFFFFF;" class="form-control" id="name" maxlength="60" name="name" value="$!{product.name}" readonly disabled >
+    				    </div>
+					</div>
+					<div class="form-group">
+    				    <label for="totalAmount" class="col-sm-2 control-label">产品规模</label>
+    				    <div class="col-sm-10">
+							<input type="text" style="border:none;background:#FFFFFF;" class="form-control" id="name" maxlength="60" name="name" value="$!{productProgressVo.totalAmount} 元" readonly disabled >
+    				    </div>
+					</div>
+					<div class="form-group">
+                        <label for="soldAmount" class="col-sm-2 control-label"><font style="color:red">*</font>已售金额</label>
+    				    <div class="col-sm-10">
+							<input type="text" class="form-control" id="soldAmount" maxlength="60" name="soldAmount" value="$!{productProgressVo.soldAmount}" >
+						</div>
+                    </div>
+					<div class="form-group">
+                        <label for="userCount" class="col-sm-2 control-label"><font style="color:red">*</font>投资人数</label>
+    				    <div class="col-sm-10">
+							<input type="text" class="form-control" id="userCount" maxlength="20" name="userCount" value="$!{productProgressVo.userCount}" >
+    				    </div>
+                    </div>
+					
+					<div class="form-group">
+                        <center>
+    				    <div class="col-sm-10">
+							<input type="button" class="btn btn-primary" value="确定" onclick="return check();">&nbsp;&nbsp;
+    						#if($!product.id)
+    							<input type="reset" class="btn btn-primary" val="重置">&nbsp;&nbsp;
+    						#end
+    						<button type="button" class="btn btn-default" id="btnBack" name="btnBack">返回</button>&nbsp;&nbsp;
+    				    </div>
+						</center>
+				  	</div>
+				</form>
+			</div>
+    		
+		###################
+			
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+	  
+    </div>
+	
+	<script type="text/javascript" src="/manage/resources/js/jquery.validate.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/manage/resources/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="/manage/resources/js/admin/prod.js" charset="UTF-8"></script>
+	
+  </body>
+</html>

@@ -1,0 +1,7 @@
+﻿<ul class="nav nav-tabs">
+  <li id="tabMess" style="margin-left:30px;"><a href="/manage/CaseMng/list">CaseMng</a></li>
+  <li id="tabCri" style="margin-left:30px;"><a href="/manage/CaseMng/critical/list">Critical</a></li>
+  <li id="tabRec" style="margin-left:30px;"><a href="/manage/CaseMng/recentSign/list">RecentSingUp</a></li>
+  
+  
+</ul>

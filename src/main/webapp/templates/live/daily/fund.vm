@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--活期数据</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	
+	
+	<!--jQuery detetimepicker-->	
+	<link rel="stylesheet" type="text/css" href="/manage/resources/datetimepicker/jquery.datetimepicker.css"/ >
+	<script src="/manage/resources/datetimepicker/jquery.js"></script>
+	<script src="/manage/resources/datetimepicker/jquery.datetimepicker.js"></script>
+	<script src="/manage/resources/js/admin/live/livedaily.js"></script>
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">活期数据 &nbsp; > &nbsp; 资金日报</h3>
+		
+			########### Tabs ################
+			#parse("live/daily/tabs.vm")
+			<br>
+			#############center content##############
+			  <div class="table-responsive">	    	
+     			<form class="form-inline" id="searchForm" action="/manage/livedaily/list/fund" method="get">
+     			  <input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    			  <div class="form-group">
+    			 <div id="datePeriod" style="float:left; padding-left: 3px;">
+						<input class="form-control" type="text" id="dataStart" name="dataStart" value="$!dataStart" data-date-format="yyyy-mm-dd">
+						至
+						<input class="form-control" type="text" id="dataEnd" name="dataEnd" value="$!dataEnd" data-date-format="yyyy-mm-dd">
+					</div>
+					</div>
+					<input type="button" value="清空" style="margin-left: 3px;" class="btn btn-default" onclick="javascript:clearDate();">
+    			  <button type="submit" class="btn btn-default">我搜</button>
+    			   <input type="button" value="导出" style="margin-left: 3px;" class="btn btn-primary" onclick="javascript:downLoadSubmit();">
+    			</form>
+    		</div>
+    		<br/>
+    		
+    		<div class="table-responsive" style="min-height:360px;">
+				
+				<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						<th width="80">日期</th>
+    						<th width="150">账户余额</th>
+    						<th width="150">在投总金额</th>
+							<th width="150">累计投资金额</th>
+    						<th width="150">当日转入本金</th>
+    						<th width="150">当日转出本金</th>
+    						<th width="150">当日转出总收益</th>
+    						<th width="150">当日转出收益(体验金)</th>
+    						<th width="150">当日在投总收益</th>
+    						<th width="150">当日在投收益(体验金)</th>
+    						<th width="150">平台充值金额</th>
+    						<th width="150">平台提现金额</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+                  	##资金日报
+					#foreach($dailyReport in $!{dailyReportPage.result})
+                  		<tr>
+                  			<td style="vertical-align:middle">$!date.format('yyyy-MM-dd',$!{dailyReport.statDate}) </td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.accBalance}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmount}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmountTotal}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmountIn}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmountOut}) 元</td>                  			
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmountOutIncome}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invAmountOutIncomeExc}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invIncome}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.invIncomeExc}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.accAmountCash}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.accAmountRech}) 元</td>
+                  		</tr>
+					#end
+                  	</tbody>
+					
+    			</table>
+              	
+    		</div>
+
+			#############center content##############
+			<script src="/manage/resources/js/pagination.js"></script>
+			#pageByPageNumbar($dailyReportPage, 'searchForm', '/manage/livedaily/list/fund', 'GET')		
+			
+		</div>
+		
+      </div>
+	  <script>
+			$('#dataStart').datetimepicker({
+				lang : 'ch',
+				format : 'Y-m-d',
+				timepicker : false,
+			});
+			$('#dataEnd').datetimepicker({
+				lang : 'ch',
+				format : 'Y-m-d',
+				timepicker : false,
+			});
+		</script>
+      <div class="footer">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

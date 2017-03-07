@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SUCCESS GLOBAL - CRM </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/manage/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+	<link href="/manage/resources/css/dashboard.css" rel="stylesheet">
+	<!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/manage/resources/bootstrap/html5shiv.js"></script>
+      <script src="/manage/resources/bootstrap/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/manage/resources/js/jquery-1.9.1.js"></script>
+    
+    </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <span style="color:white" height="100" size ="20px">
+     <!-- <img src="/manage/resources/image/logo_admin_new.png" height="50"/>
+-->  
+	This is a LOGO
+</span>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          	<span class="navbar-brand"></span>
+            <span class="navbar-brand"><a href="" style="color:white" target="_blank">MAIN SITE</a></span>
+	    <span class="navbar-brand"><a href="/manage/welcome/editpwd" style="color:white">CHANGE PASSWORD</a></span>
+            <span class="navbar-brand"><a href="/manage/logout" style="color:white">LOGOUT</a></span>
+          </ul>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

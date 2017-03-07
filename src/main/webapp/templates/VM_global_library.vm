@@ -1,0 +1,204 @@
+##Test global method of velocity
+#macro (showMessage $name)
+    Now I am a good coder: $name
+#end
+
+## Display all queued Struts errors
+#macro (errorMarkup)
+    #if ($errors.exist() )
+        <ol style="color:red">
+            #foreach ($e in $errors.all )
+                <li style="list-style-type:disc">$e</li>
+            #end
+        </ol>
+    #end
+#end
+
+#macro (errorMarkupWithoutStyle)
+    #if ($errors.exist())
+        #foreach ($e in $errors.all )
+            $e
+        #end
+    #end
+#end
+
+## Display all queued Struts errors for a particular property
+#macro (errorForProperty $property)
+    #if ($errors.exist($property) )
+        #foreach ($er in $errors.get($property))
+        <br />
+           $er
+        #end
+    #end
+#end
+
+#macro (errorForPropertyno $property)
+    #if ($errors.exist($property) )
+        #foreach ($er in $errors.get($property))
+           $er
+        #end
+    #end
+#end
+
+## Display all queued Struts errors for a particular property
+#macro (errorMarkupForProperty $property)
+    #if ($errors.exist($property) )
+        <ol style="color:red">
+        #foreach ($er in $errors.get($property))
+           <li style="list-style-type:disc">$er</li>
+        #end
+        </ol>
+    #end
+#end
+
+## Display all queued Struts errors for a particular property
+#macro (proerrorMarkupForProperty $property)
+    #if ($errors.exist($property) )
+        <dd>&nbsp;</dd><dt>
+        #foreach ($er in $errors.get($property))
+           <span style="color:red">$er</span>
+        #end
+</dt>
+    #end
+#end
+
+## Display all queued Struts errors
+#macro (messageMarkup)
+    #if ($messages.exist() )
+        <ol style="color:red">
+        #foreach ($m in $messages.all )
+            <li style="list-style-type:disc">$m</li>
+        #end
+        </ol>
+    #end
+#end
+
+## Display all queued Struts action messages for a particular property
+#macro (messageMarkupForProperty $property)
+    #if($messages.exist($property))
+        #foreach ($m in $messages.get($property))
+            $m
+        #end
+    #end
+#end
+
+
+## Custom pagebar
+#macro(pagebar $pageInfo $formId  $action  $method)
+	#set($pages = $pageInfo.pageBean.getPages())
+	#if(!$method)
+		#set($method = 'GET')
+	#end
+	<form name="$formId" id="$formId" action="$!action" method="$!method">
+		<input type="hidden" name="searchText" value="$!searchText" readonly >
+		<input type="hidden" name="prdType" value="$!prdType" readonly >
+		<input type="hidden" name="prdId" value="$!prdId" readonly >
+		<input type="hidden" name="prdName" value="$!prdName" readonly >
+		<input type="hidden" name="userType" value="$!userType" readonly >
+		<input type="hidden" name="period" value="$!period" readonly >
+		<input type="hidden" name="timeStart" value="$!timeStart" readonly >
+		<input type="hidden" name="timeStart" value="$!timeEnd" readonly >
+    	<input type="hidden" name="pageNum" id="pageNum" value="$!{pageInfo.pageBean.pageIndex}"/>
+    	<ul class="pagination pagination-centered">
+    	 #if($pages == 1)
+    	 	<li><a href="javascript:redirectToFirst('$formId')" class="active">1</a></li>
+    	 #elseif($pages == 2)
+    		 <li><a #if(1 == $!pageInfo.pageBean.pageIndex) class="active" #end href="javascript:redirectToFirst('$formId')">首页</a></li>
+    		 <li><a #if(2 == $!pageInfo.pageBean.pageIndex) class="active" #end href="javascript:redirectTo('$!formId', $!pages);">尾页</a></li>
+    	 #elseif($pages >=3)
+    	 	#foreach($pageIndex in [1..$!pages])
+    	 		#if(1 == $!pageIndex)
+    		 		<li><a #if(1 == $!pageInfo.pageBean.pageIndex) class="active" #end href="javascript:redirectToFirst('$formId',1)">首页</a></li>
+				#elseif($!pageIndex==$!pages)
+					<li><a #if($!pages == $!pageInfo.pageBean.pageIndex) class="active" #end  href="javascript:redirectTo('$!formId', $!pages);">尾页</a></li>  	
+				#else
+					<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectTo('$!formId', $!pageIndex);">$!pageIndex</a></li>
+				#end    	   	
+    	   	#end
+    	   	  
+    	 #else
+    	  	<li><a href="javascript:redirectToFirst('$formId')" class="active">1</a></li>
+    	 #end  	      	   
+    	    <li class="total"><span>total $pages pages</span></li>
+    	    <li class="total"><span>total $!{pageInfo.pageBean.count} records</span></li>
+    	  
+    	    <li class="pageSize">
+				<span>per page 
+        	    	<select name="pageSize" id="pageSize" onChange="changePageSize('$!formId', $!pageInfo.pageBean.pageIndex)" style="height:20px;">
+        	    		<option value="$!pageInfo.pageBean.getPageSize()">please</option>
+        	    		<option value="15" #if($!pageInfo.pageBean.getPageSize() == 15) selected #end >15</option>
+        	    		<option value="25" #if($!pageInfo.pageBean.getPageSize() == 25) selected #end >25</option>
+        	    		<option value="50" #if($!pageInfo.pageBean.getPageSize() == 50) selected #end >50</option>
+        	    	</select>
+				</span>
+    	    </li>
+    	</ul>
+    </form>
+#end
+
+## Custom pageByPageNumbar
+#macro(pageByPageNumbar $pageInfo $formId $action $method)
+	#set($pages = $pageInfo.pageBean.getPages())
+	#if(!$method)
+		#set($method = 'GET')
+	#end
+
+    	<input type="hidden" name="pageNum" id="pageNum" value="$!{pageInfo.pageBean.pageIndex}"/>
+    	<ul class="pagination pagination-centered">
+    	 #if($pages == 1)
+    	 	<li><a href="javascript:redirectToFirst('$formId')" class="active">1</a></li>
+    	 #elseif($pages >= 2 && $pages <= 5)
+    		 #foreach($pageIndex in [1..$!pages])
+					<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', $!pageIndex);">$!pageIndex</a></li>    	   	
+    	   	 #end
+    	 #elseif($pages > 5)
+    	     #if($!pageInfo.pageBean.pageIndex<3)
+				<li #if(1 == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', 1);">1</a></li>
+				<li #if(2 == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', 2);">2</a></li> 
+				<li #if(3 == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', 3);">3</a></li> 
+				<li class="total"><span>...</span></li>
+				#set($pages1 = $!pages - 1)
+				#foreach($pageIndex in [$!pages1.. $!pages])
+					<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', $!pageIndex);">$!pageIndex</a></li>    	   	
+    	   		#end
+    	     #elseif($!pageInfo.pageBean.pageIndex>=3 && $!pageInfo.pageBean.pageIndex < $!pages - 3)
+    	    	 <li #if(1 == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', 1);">1</a></li>
+    	    	#set($pages1 = $!pageInfo.pageBean.pageIndex - 1)
+    	    	#if($pages1!=2)<li class="total"><span>...</span></li> #end
+    	    	#set($pages2 = $!pageInfo.pageBean.pageIndex + 1)
+    		 	#foreach($pageIndex in [$!pages1.. $!pages2])
+						<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', $!pageIndex);">$!pageIndex</a></li>    	   	
+    	   	 	#end
+    	   	 	 <li class="total"><span>...</span></li>
+    	   	 	#set($pages3 = $!pages - 1)
+				#foreach($pageIndex in [$!pages3..$!pages])
+					<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', $!pageIndex);">$!pageIndex</a></li>    	   	
+    	   		#end
+    	   	 #elseif($!pageInfo.pageBean.pageIndex >= $!pages - 3)
+    	   	 	 <li #if(1 == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', 1);">1</a></li>
+    	    	 <li class="total"><span>...</span></li>
+    	    	 #set($pages3 = $!pages - 4)
+    	    	 #foreach($pageIndex in [$!pages3..$!pages])
+					<li #if($!pageIndex == $!pageInfo.pageBean.pageIndex) class="active" #end ><a href="javascript:redirectToByPageNum('$!formId', $!pageIndex);">$!pageIndex</a></li>    	   	
+    	   		 #end
+    	   	 #end
+    	 #else
+    	  	<li><a href="javascript:redirectToByPageNum('$formId',1)" class="active">1</a></li>
+    	 #end  	      	   
+    	    <li class="total"><span>now $!pageInfo.pageBean.pageIndex page</span></li>
+    	    <li class="total"><span>total $pages pages</span></li>
+    	    <li class="total"><span>total $!{pageInfo.pageBean.count} records</span></li>
+    	  
+    	    <li class="pageSize">
+				<span>
+        	    	<select name="pageSize" id="pageSize" onChange="changePageSizeByPageNum('$!formId', $!pageInfo.pageBean.pageIndex,$(this).children('option:selected').val())" style="height:20px;">
+        	    		<option value="$!pageInfo.pageBean.getPageSize()">option</option>
+        	    		<option value="15" #if($!pageInfo.pageBean.getPageSize() == 15) selected #end >15</option>
+        	    		<option value="25" #if($!pageInfo.pageBean.getPageSize() == 25) selected #end >25</option>
+        	    		<option value="50" #if($!pageInfo.pageBean.getPageSize() == 50) selected #end >50</option>
+        	    	</select>
+        	    	perpage
+				</span>
+    	    </li>
+    	</ul>
+#end

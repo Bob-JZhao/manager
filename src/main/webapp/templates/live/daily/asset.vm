@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--活期数据</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	
+	
+	<!--jQuery detetimepicker-->	
+	<link rel="stylesheet" type="text/css" href="/manage/resources/datetimepicker/jquery.datetimepicker.css"/ >
+	<script src="/manage/resources/datetimepicker/jquery.js"></script>
+	<script src="/manage/resources/datetimepicker/jquery.datetimepicker.js"></script>
+	<script src="/manage/resources/js/admin/live/livedaily.js"></script>
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">活期数据 &nbsp; > &nbsp; 资产日报</h3>
+		
+			########### Tabs ################
+			#parse("live/daily/tabs.vm")
+			<br>
+			#############center content##############
+			  <div class="table-responsive">	    	
+     			<form class="form-inline" id="searchForm" action="/manage/livedaily/list/asset" method="get">
+     			  <input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    			  <div class="form-group">
+    			 <div id="datePeriod" style="float:left; padding-left: 3px;">
+						<input class="form-control" type="text" id="dataStart" name="dataStart" value="$!dataStart">
+						至
+						<input class="form-control" type="text" id="dataEnd" name="dataEnd" value="$!dataEnd">
+					</div>
+					</div>
+					<input type="button" value="清空" style="margin-left: 3px;" class="btn btn-default" onclick="javascript:clearDate();">
+    			  <button type="submit" class="btn btn-default">我搜</button>
+    			</form>
+    		</div>
+    		<br/>
+    		
+    		<div class="table-responsive" style="min-height:360px;">
+				
+				<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						<th width="80">日期</th>
+    						<th width="150">在期债权规模</th>
+    						<th width="150">待放款债权规模</th>
+							<th width="150">已放款债权规模</th>
+    						<th width="150">累计债权规模</th>
+    						<th width="150">当日放款金额</th>
+    						<th width="150">当日回款金额</th>
+    						<th width="150">基金金额</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+                  	##资产日报
+					#foreach($dailyReport in $!{dailyReportPage.result})
+                  		<tr>
+                  			<td style="vertical-align:middle">$!date.format('yyyy-MM-dd',$!{dailyReport.statDate}) </td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtAmount}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtAmountPaying}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtAmountPaid}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtAmountTotal}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtPaymentDay}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.dbtReturnDay}) 元</td>
+                  			<td style="vertical-align:middle">$number.format("#,#00.00",$!{dailyReport.fndAmount}) 元</td>
+                  		</tr>
+					#end
+                  	</tbody>
+					
+    			</table>
+              	
+    		</div>
+
+			#############center content##############
+			<script src="/manage/resources/js/pagination.js"></script>
+			#pageByPageNumbar($dailyReportPage, 'searchForm', '/manage/livedaily/list/asset', 'GET')		
+			
+		</div>
+		
+      </div>
+	  <script>
+			$('#dataStart').datetimepicker({
+				lang : 'ch',
+				format : 'Y-m-d',
+				timepicker : false,
+			});
+			$('#dataEnd').datetimepicker({
+				lang : 'ch',
+				format : 'Y-m-d',
+				timepicker : false,
+			});
+		</script>
+      <div class="footer">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

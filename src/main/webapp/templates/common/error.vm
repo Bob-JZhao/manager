@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jrjia.cn-error happened</title>
+<link href="$staticResourceUrl/css/base.css" type="text/css" rel="stylesheet"/>
+<link href="$staticResourceUrl/css/error.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="errorMain">
+<!-- img src="$staticResourceUrl/images/502.jpg"/ -->
+
+<font size=6 color=blue>Common Error!!</font>
+
+<p>www.jrjia.cn &nbsp;&nbsp; <a href="http://www.successglobal.nz/#welcome-to-success-global")">RETURN </a></p>
+	#if ($detailErrorMessage)
+		$!detailErrorMessage
+	#end
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿        <div class="col-sm-2 col-md-1 sidebar" style="width: 9.6%">
+            <ul class="nav nav-sidebar">
+            	<li id="welcomeItem"><a href="/manage/welcome">Welcome </a></li>
+				 
+				#if($sec.hasAnyRole("ROLE_ADMIN"))
+            	<li id="AdviserMng"><a href="/manage/AdviserMng/list">AdviserMng</a></li>
+				#end
+				#if($sec.hasAnyRole("ROLE_ADMIN","ROLE_ADVISER","ROLE_OFFICE"))
+            	<li id="CaseMng"><a href="/manage/CaseMng/list">CaseMng</a></li>
+				#end
+
+				#if($sec.hasAnyRole("ROLE_ADMIN","ROLE_ADVISER","ROLE_OFFICE"))
+            	<li id="Message"><a href="/manage/Message/list">Message</a></li>
+				#end
+       				
+				 #if($sec.hasAnyRole("ROLE_ADMIN","ROLE_ADVISER","ROLE_OFFICE"))
+            	<li id="ClientMng"><a href="/manage/ClientMng/list">ClientMng</a></li>
+				#end			 
+				 
+				 
+				
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var pathName=window.document.location.pathname;
+			
+			if (pathName.indexOf("/manage/welcome") == 0) {
+				$("#welcomeItem").addClass("active");
+			} 
+			else if (pathName.indexOf("/manage/CaseMng") == 0) {
+				$("#CaseMng").addClass("active");
+			}else if (pathName.indexOf("/manage/AdviserMng") == 0) {
+				$("#AdviserMng").addClass("active"); 
+
+			} else if (pathName.indexOf("/manage/Message") == 0) {
+				$("#Message").addClass("active");
+			} else if (pathName.indexOf("/manage/ClientMng") == 0) {
+				$("#ClientMng").addClass("active");
+			} else if (pathName.indexOf("/manage/") == 0) {
+				$("#cashItem").addClass("active");
+			} 
+
+        </script>

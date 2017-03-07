@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+			  <li id="tabLive" style="margin-left:30px;"><a href="/manage/live/product/list/1">活期产品</a></li>
+ 			  <li id="tabLivePrv" ><a href="/manage/live/prv/list">供应商管理</a></li>
+ 			  <li id="tabLiveAsset"><a href="/manage/live/asset/list">资产管理</a></li>
+			  <li id="tabLivePayment"><a href="/manage/live/payment/list">放还款管理</a></li>
+			  
+</ul>

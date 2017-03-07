@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--资讯管理</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	
+	<!--jQuery detetimepicker-->	
+	<link rel="stylesheet" type="text/css" href="/manage/resources/datetimepicker/jquery.datetimepicker.css"/ >
+	<script src="/manage/resources/datetimepicker/jquery.js"></script>
+	<script src="/manage/resources/datetimepicker/jquery.datetimepicker.js"></script>
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header"><a href="/manage/info/list">资讯管理 </a>&nbsp; > &nbsp; 资讯列表</h3>
+			<br>
+		
+			#############center content##############
+			 
+			<div class="table-responsive">
+			<a href="/manage/info/edit" class="btn btn-primary" style="float:right">新增资讯</a>
+			<input type="hidden" value="$!homePage" id="homePage">
+     			<form class="form-inline" id="searchForm" action="/manage/info/list" method="post">
+     			   <input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    			  <div class="form-group">
+					<select class="form-control" name="type" id="type"  style="float:left">
+    						<option value="" #if(!$!{type})selected="selected"#end>所属板块</option>
+							<option value="1"  #if($!{type}==1)selected="selected"#end>媒体报道</option>
+							<option value="2" #if($!{type}==2)selected="selected"#end>行业资讯</option>
+					</select>&nbsp;
+					
+					<div id="timePeriod" style="float:left; padding-left:3px;">
+						<input class="form-control" type="text" id="timeStart" name="timeStart" value="$!timeStart" placeholder="--开始日期--">
+						至
+						<input class="form-control" type="text" id="timeEnd" name="timeEnd" value="$!timeEnd" placeholder="--结束日期--">
+					</div>
+	        		<input type="text" class="form-control" id="searchText" name="searchText" placeholder="标题" value="$!searchText" style="float:left;margin-left:3px;">
+    			  </div>
+				  <button type="submit" class="btn btn-default" style="margin-left:3px;">我搜</button>
+    			</form>
+    		</div>
+    		<br/>
+    		<div class="table-responsive" style="min-height:360px;">
+				
+				<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						<th width="100">资讯ID</th>
+							<th width="100">标题</th>
+    						<th width="100">所属板块</th>
+    						<th width="100">发布时间</th>
+    						<th width="100">操作</th>
+    					</tr>
+    				</thead>
+					
+    				<tbody>
+                  	##订单详情
+					#foreach($e in $!{pageInfo.result})
+                  		<tr id="aid$!{e.id}">
+                  			<td style="vertical-align:middle">$!{e.id}</td>
+                  			<td style="vertical-align:middle">$!{e.title}</td>
+                  			<td style="vertical-align:middle">#if($!{e.artType}==1)媒体资讯#{else}行业资讯#end</td>
+                  			<td style="vertical-align:middle">$!date.format('yyyy-MM-dd HH:mm',$!{e.createDate})</td>
+                  			<td style="vertical-align:middle">
+								<a href="/manage/info/edit?id=$!{e.id}&pageNum=$!{pageNum}&searchText=$!{searchText}&type=$!{type}&timeStart=$!{timeStart}&timeEnd=$!{timeEnd}">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+								<a href="javascript:;" onclick="return delInfo('$!{e.id}')">删除</a>&nbsp;&nbsp;
+							</td>
+                  		</tr>
+					#end
+                  	</tbody>
+					
+    			</table>
+              	
+    		</div>
+
+			#############center content##############
+			<script src="/manage/resources/js/pagination.js"></script>
+			#pageByPageNumbar($pageInfo, 'searchForm', '/manage/info/list', 'GET')
+			<script>
+   				$('#timeStart').datetimepicker({
+					lang:'ch',
+					format:'Y-m-d',
+						 timepicker:false,
+				});
+				$('#timeEnd').datetimepicker({
+					lang:'ch',
+					format:'Y-m-d',
+						 timepicker:false,
+				});
+				
+				
+				function delInfo(id){
+					if(!confirm("确定删除吗？")){return false;}
+					jQuery.ajax({
+						url:"/manage/info/del/"+id,
+						type:"get",
+						dataType:"json",
+						success:function(r){
+							if(r.status=="ok"){
+								alert("删除成功");
+								$("#aid"+id).remove();
+							}else{alert("删除失败")}
+							
+						},
+						error:function(){alert("发生错误，删除失败")}
+					})
+				}
+			</script>
+			
+		</div>
+		
+      </div>
+	  
+      <div class="footer">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

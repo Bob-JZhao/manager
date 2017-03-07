@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/security 
+			http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!--use-expressions="true" 的意思是开启表达式 ， access-denied-page的意思是，当验证权限失败后会跳转到的页面 -->
+	<security:http auto-config="true" use-expressions="true" access-denied-page="/denied">
+
+		<!-- 对登录页面，所有的用户都可以访问 -->
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<!-- 所有人都可以访问资源文件 -->
+		<security:intercept-url pattern="/resources/**" access="permitAll" />
+		
+		<!-- 对所有的资源，进行权限的设置访问-->
+		<security:intercept-url pattern="/welcome/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ADVISER','ROLE_OFFICE')" />
+		
+		<security:intercept-url pattern="/AdviserMng/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/CaseMng/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ADVISER','ROLE_OFFICE')" />
+		<security:intercept-url pattern="/ClientMng/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ADVISER','ROLE_OFFICE')" />
+		<security:intercept-url pattern="/Message/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ADVISER','ROLE_OFFICE')" />
+		
+		 
+		<!-- 配置登录页面为login ，登录成功默认跳转到welcome，登录失败返回login并携带参数error=1 -->
+		<security:form-login login-page="/login/checkLogin"
+			authentication-failure-url="/login/validateFail" 
+			username-parameter="username"
+           	password-parameter="password"
+			
+			/>
+		
+		<!-- 
+			invalid-session-url
+			max-sessions:允许用户帐号登录的次数。范例限制用户只能登录一次。
+            exception-if-maximum-exceeded: 默认为false，此值表示：用户第二次登录时，前一次的登录信息都被清空。
+                                       当exception-if-maximum-exceeded="true"时系统会拒绝第二次登录。
+			error-if-maximum-exceeded 后登陆的账号会挤掉第一次登陆的账号
+			session-fixation-protection 防止伪造sessionid攻击. 用户登录成功后会销毁用户当前的session. 创建新的session,并把用户信息复制到新session中. 
+		<security:session-management invalid-session-url="/login/timeout" session-fixation-protection="none">
+			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/login/singleton" />
+		</security:session-management>-->
+		
+		
+		<security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/login/logout" />  
+    	<security:session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" />
+		
+	</security:http>
+
+	<!-- 阻止多端登录 -->
+	<bean id="concurrentSessionControlStrategy" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">  
+	    <constructor-arg name="sessionRegistry" ref="sessionRegistry" />  
+	    <property name="maximumSessions" value="1"></property>  
+	</bean> 
+	
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<!-- 配置一个认证管理器 -->
+	<security:authentication-manager alias="authenticationManager">
+		<!-- 使用自定义的UserDetailService -->
+		<security:authentication-provider user-service-ref="userDetailsService">
+		<security:password-encoder ref="passwordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 对密码进行MD5编码 -->  
+    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>  
+    
+    <!--  通过 userDetailsService,Spring会自动的定义用户的访问级别.   -->
+	<bean id="userDetailsService" class="com.imm.security.UserDetailsServiceImpl" />
+	
+</beans>

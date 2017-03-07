@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>IMM GLOBAL- CRM</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">welcome</h3>
+			<center><font size="30">WELCOME-TO-IMM-GLOBAL</font>
+		<!-- <img src="/manage/resources/image/welcome-bg.jpg"/></center>
+			-->
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

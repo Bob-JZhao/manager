@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>IMM - CRM </title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	<script src="/manage/resources/js/admin/prod.js"></script>
+	<script type="text/javascript" src="/manage/resources/js/jquery.validate.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/manage/resources/js/admin/AdviserMng.js" charset="UTF-8"></script>
+	
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+        
+			<h3 class="page-header">AdviserMng &nbsp; > &nbsp; Adviser Performance</h3>
+			########### Tabs ################
+			#parse("AdviserMng/tabs.vm")
+			<br>
+			###########################
+    	    <div class="table-responsive">
+				
+				<input type="hidden" value="$!homePage" id="homePage">
+				 
+    	    	
+     			<form class="form-inline" id="searchForm" action="/manage/AdviserMng/adviserper/list" method="get">
+					<input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    					<div class="form-group">
+        			    ##<label class="sr-only" for="dspId">DSP</label>
+        			  
+					 
+					 
+					 
+        			    <input style="float:left;margin-left:3px;"  type="text" class="form-control" id="searchText" name="searchText" placeholder="type Adviser id or name " value="$!{searchText}">
+        			  	</div>
+					<button type="submit" class="btn btn-default">search</button>
+    			</form>
+    		</div>
+    		<br/>
+    		
+    		<div class="table-responsive">
+              	<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						<th width="70">ID</th>
+    						<th width="150">Adviser name</th>
+    						<th width="70">applications complete</th>
+							<th width="130">applications in process</th>
+							<th width="130">applications total </th>
+							<th width="100">performance</th>
+							
+    							<th width="200">operation</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+						#foreach($ad in $!{pageInfo.result})
+						<tr>
+                  			<td style="vertical-align:middle">$!{ad.id}</td>
+                  			<td style="vertical-align:middle">$!{ad.total}</td>
+					<td style="vertical-align:middle">$!{ad.process}</td>
+
+
+                  			<td style="vertical-align:middle">$!{ad.total}</td>
+					<td style="vertical-align:middle">$!{ad.process}</td> 
+                  			<td style="vertical-align:middle">$!{ad.socore}</td>  
+                  			<td style="vertical-align:middle"><a href="javascript:m('$!{ad.id}')">edit</a></td>
+							 
+                  		</tr>
+						#end
+                  	</tbody>
+    			</table>
+				
+    		</div>
+			
+		###################
+		<script src="/manage/resources/js/pagination.js"></script>
+		#pageByPageNumbar($pageInfo, 'searchForm', '/manage/prd/list', 'POST')	
+			
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+	
+  </body>
+</html>

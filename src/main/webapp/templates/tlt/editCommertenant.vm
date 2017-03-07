@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理-- #if($!userMngVo.id) 修改  #else 新建  #end 后台用户</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+    <script src="/manage/resources/js/admin/tlt.js"></script>
+    
+	<script src="/manage/resources/js/jquery.validate.min.js"></script>
+	<script src="/manage/resources/js/jquery.form.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/manage/resources/datetimepicker/jquery.datetimepicker.css"/ >
+	<script src="/manage/resources/datetimepicker/jquery.datetimepicker.js"></script>
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">平台记录维护 &nbsp; > &nbsp; #if($!checkItem.id) 修改 #else 新建 #end 平台记录</h3>
+			
+			###########################
+			
+    	     <div>
+				<form class="form-horizontal" id="commertenantPayForm" name="commertenantPayForm" action="/manage/tlt/saveCommertenant" method="post">
+				  <input type="hidden" name="id" id="id" value="$!{checkItem.id}"/>
+				  #if ($!errMsg)
+					 <div>
+    				    <center><span><font style="color:red">$!errMsg</font></span></center>
+    				  </div>
+				  #end
+				  <div class="form-group">
+				    <label for="paySn" class="col-sm-2 control-label"><font style="color:red">*</font>交易流水</label>
+				    <div class="col-sm-10">
+				      <input type="text" style="ime-mode: disabled;" #if($!checkItem.id) readOnly #end class="form-control" id="paySn" name="paySn" value="$!checkItem.paySn" >
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="itemNo" class="col-sm-2 control-label"><font style="color:red">*</font>交易序号</label>
+				    <div class="col-sm-10">
+				      <input type="text" #if($!checkItem.id) readOnly #end class="form-control" id="itemNo" name="itemNo" value="$!checkItem.itemNo">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="payAmount" class="col-sm-2 control-label"><font style="color:red">*</font>交易金额</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="payAmount" name="payAmount" value="$!checkItem.payAmount">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="payType" class="col-sm-2 control-label"><font style="color:red">*</font>交易类型</label>
+				    <div class="col-sm-10">				      	
+						<select id="payType" #if($!checkItem.id) readOnly #end name="payType" style="width:150px" class="form-control">
+				      		<option value="8" #if($!{checkItem.payType} == 8) selected #end>充值</option>
+							<option value="9" #if($!{checkItem.payType} == 9) selected #end>提现</option>
+				      		</select>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="submitTime0" class="col-sm-2 control-label"><font style="color:red">*</font>提交时间</label>
+				    <div class="col-sm-10">
+				      <input class="form-control" type="text" id="submitTime0" name="submitTime0" value="$!date.format('yyyy-MM-dd HH:mm:ss',$!{checkItem.submitTime})">
+				    </div>
+				  </div>
+				  
+				  <div class="form-group">
+				    <label for="paySuccessTime0" class="col-sm-2 control-label"><font style="color:red">*</font>完成时间</label>
+				    <div class="col-sm-10">
+				      <input class="form-control" type="text" id="paySuccessTime0" name="paySuccessTime0"  value="$!date.format('yyyy-MM-dd HH:mm:ss',$!{checkItem.paySuccessTime})">
+				    </div>
+				  </div>
+				  <div class="form-group">
+                        <center>
+    				    <div class="col-sm-10">
+							<input id="commertenantSubmit" type="button" class="btn btn-primary" value="确定" onclick="javascript:checkSubmit();">&nbsp;&nbsp;
+    						#if($!checkItem.id)
+    							<input type="reset" class="btn btn-primary" val="重置">&nbsp;&nbsp;
+    						#end
+    						<button type="button" class="btn btn-default" id="btnBack" onclick="javascript:history.back(-1);" name="btnBack">返回</button>&nbsp;&nbsp;
+    				    </div>
+						</center>
+				  	</div>
+				  
+				</form>
+			</div>
+    		
+		##################
+		<script>
+   				$('#paySuccessTime0').datetimepicker({
+					lang:'ch',
+					format:'Y-m-d H:i:s'
+				});
+				$('#submitTime0').datetimepicker({
+					lang:'ch',
+					format:'Y-m-d H:i:s'
+				});
+			</script>
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SUCCESS GLOBAL - CRM </title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	<script type="text/javascript" src="/manage/resources/js/jquery.validate.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/manage/resources/js/admin/case.js" charset="UTF-8"></script>
+	
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+        
+			<h3 class="page-header">CaseMngMng &nbsp; > &nbsp; Critical</h3>
+			########### Tabs ################
+			#parse("CaseMng/tabs.vm")
+			<br>
+			###########################
+    	    <div class="table-responsive">
+				
+				<input type="hidden" value="$!homePage" id="homePage">
+				
+    	    	<a id="btn_add_prd" class="btn btn-primary" style="float:right">add adviser</a>
+    	    	
+     			<form class="form-inline" id="searchForm" action="/manage/Message/list" method="get">
+					<input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    					<div class="form-group">
+        			    ##<label class="sr-only" for="dspId">DSP</label>
+        			  
+					 
+					 
+					 
+        			    <input style="float:left;margin-left:3px;"  type="text" class="form-control" id="searchText" name="searchText" placeholder="type keyword " value="$!{searchText}">
+        			  	</div>
+					<button type="submit" class="btn btn-default">search</button>
+    			</form>
+    		</div>
+    		<br/>
+    		
+    		<div class="table-responsive">
+              	<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						<th width="70">ID</th>
+    						<th width="150">Client name</th>
+    						 
+							<th width="100">mobile-phone</th>
+							<th width="130">critical time</th> 
+							<th width="130">create time</th>
+    						<th width="200">operation</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+						#foreach($ad in $!{pageInfo.result})
+						<tr>
+                  			<td style="vertical-align:middle">$!{ad.id}</td>
+                  			<td style="vertical-align:middle">$!{ad.name}</td>
+							<td style="vertical-align:middle">$!{ad.mobile}</td>
+                  			<td style="vertical-align:middle">$!date.format('yyyy-MM-dd HH:mm:ss',$!ad.createTime)</td> 
+					
+                  			<td style="vertical-align:middle">$!date.format('yyyy-MM-dd HH:mm:ss',$!ad.createTime)</td> 
+                  			<td style="vertical-align:middle"><a href="javascript:modify('$!{ad.id}')">edit</a></td>
+							 
+                  		</tr>
+						#end
+                  	</tbody>
+    			</table>
+				
+    		</div>
+			
+		###################
+		<script src="/manage/resources/js/pagination.js"></script>
+		#pageByPageNumbar($pageInfo, 'searchForm', '/manage/prd/list', 'POST')	
+			
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+	
+  </body>
+</html>

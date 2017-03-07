@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--cps对账</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	
+	<link href="/manage/resources/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+	<script src="/manage/resources/js/jquery.validate.min.js"></script>
+	<script src="/manage/resources/datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="/manage/resources/js/admin/cps.js"></script>
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">cps对账 &nbsp;供应商总览</h3>
+			
+	
+    	    <div class="table-responsive">
+				<div style="float:right">
+					#if($!errMsg)
+        				<span align="center"><font color="red">$!errMsg</font></span>
+        			#end
+    			</div>
+    	    	
+     			<form class="form-inline" id="searchForm" action="/manage/cps/list" method="get">
+     			  <input type="hidden" name="pageSize" value="$!pageInfo.pageBean.pageSize"/>
+    			  <div class="form-group">
+    			      ##<label class="sr-only" for="dspId">DSP</label>
+    			      <input type="text" class="form-control" style="width:230px;" id="searchText" name="searchText" placeholder="供应商名称" value="$!prvName">
+					  <input type="text" class="form-control" id="startTime" name="startTime" value="$!startTime" data-date-format="yyyy-mm-dd hh:ii:ss" placeholder="投资时间下限">
+					  <input type="text" class="form-control" id="endTime" name="endTime" value="$!endTime" data-date-format="yyyy-mm-dd hh:ii:ss" placeholder="投资时间上限">
+				  </div>
+    			  <button type="submit" id="btn_search_file" class="btn btn-primary">我搜</button>
+    			</form>
+    		</div>
+    		<br/>
+			
+    		<div class="table-responsive">
+              	<table class="table table-striped table-bordered table-hover" id="adbaseTable">
+              		<thead>
+    					<tr>
+    						
+    						<th width="10%">供应商</th>
+							<th width="5%">投资用户人数</th>
+							<th width="7%">投资总额</th>
+							<th width="7%">操作</th>
+    					</tr>
+    				</thead>
+    				<tbody id="cashTableBodys">
+					#set($prvCount = 0)
+					#set($allUsrCount = 0)
+					#set($allAmountCount = 0)
+					
+                  	#foreach($obj in $!{pageInfo.result})
+						#set($prvCount = $math.add($prvCount,1))
+						#if($!{obj.usrCount})
+							#set($allUsrCount = $math.add($allUsrCount,$!{obj.usrCount}))
+						#end
+						#if($!{obj.amount})
+							#set($allAmountCount = $math.add($allAmountCount,$!{obj.amount}))
+						#end
+                  		<tr>
+							<td style="vertical-align:middle">$!{obj.prvName}</td>
+							<td style="vertical-align:middle">$!{obj.usrCount}</td>
+							<td style="vertical-align:middle">$!{obj.amount}</td>
+							<td style="vertical-align:middle"><a href ="/manage/cps/list/per/$!{obj.id}?startTime=$!{startTime}&endTime=$!{endTime}">详情</a></td>
+						
+                  		</tr>
+					#end
+					<tr><td>供应商总数：$prvCount</td><td>投资用户总数：$allUsrCount</td><td>投资总额：$allAmountCount</td><td></td></tr>
+                  	</tbody>
+    			</table>
+    		</div>
+			#if($pageInfo)
+			<script src="/manage/resources/js/pagination.js"></script>
+			#pageByPageNumbar($pageInfo, 'searchForm', "/manage/cps/list", 'GET')
+			#end
+		</div>
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

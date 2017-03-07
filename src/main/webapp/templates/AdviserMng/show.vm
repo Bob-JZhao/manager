@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--查看产品</title>
+	
+  <body>
+
+    #parse("common/header.vm")
+	
+    </head>
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">产品管理 &nbsp; > &nbsp; 查看产品</h3>
+			
+			<div class="table-responsive" style="min-height:360px;">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th width="150" height="30">名称</th>
+							<td>$!{productVo.name}</td>
+						</tr>						
+						<tr>
+							<th width="150" height="30">供应商</th>
+							<td>$!{provName}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">供应商产品ID</th>
+							<td>$!{productVo.prvPrdId}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">产品类型</th>
+							<td>
+								#if($!productVo.prdType == 0) P2P  
+    							#elseif($!productVo.prdType == 1) 信托
+    							#elseif($!productVo.prdType == 2) 资管
+    							#elseif($!productVo.prdType == 3) PE
+    							#elseif($!productVo.prdType == 4) 资金
+    							#else - 
+    							#end
+							</td>
+						</tr>
+						#if($!productVo.prdType == 0)  
+							<tr>
+							<th width="150" height="30">是否站内购买</th>
+							<td>
+								#if($!productVo.operationType == 1) 是  
+    							#elseif($!productVo.operationType == 2) 否
+    							#else - 
+    							#end
+							</td>
+						</tr>
+    							 
+    							#else  
+						#end
+						<tr>
+							<th width="150" height="30">产品阶梯记录</th>
+							<td>
+								<table>
+                                    <tr>
+                                        <td class="upDownTitle">最小投资金额&nbsp;&nbsp;&nbsp;</td>
+    									<td class="upDownTitle">最大投资金额&nbsp;&nbsp;&nbsp;</td>
+    									<td class="upDownTitle">收益率&nbsp;&nbsp;&nbsp;</td>
+    									<td class="upDownTitle">返现比例&nbsp;&nbsp;&nbsp;</td>
+										<td class="upDownTitle">奖励系数</td>
+    								</tr>
+    								#foreach($prr in $!{prrLists})
+    								<tr height="40">
+                                        <td>$!{prr.purchaseLow}</td>
+    									<td>$!{prr.purchaseHight}</td>
+    									<td>$!{prr.returnRate}%</td>
+    									<td>$!{prr.rewardRate}%</td>
+										<td>$!{prr.rewardFactor}%</td>
+    								</tr>
+    								#end
+    							</table>
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">投资期限</th>
+							<td>
+								$!{productVo.investDuration}
+    							#if($!productVo.investDurationUnit == 2)月
+    							#elseif($!productVo.investDurationUnit == 1)日
+    							#else 年
+    							#end
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">产品规模</th>
+							<td>
+								$!{productVo.amount}
+    							#if($!productVo.amountUnit == 1)万
+    							#else 亿
+    							#end
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">保障方式</th>
+							<td>$!{productVo.guarantee}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">还款方式</th>
+							<td>$!{productVo.repayment}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">产品评级</th>
+							<td>$!{productVo.officialRate}星</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">是否转让</th>
+							<td>
+								 
+								#if($!productVo.canBeTransfer == 0)不能
+    							#else 能
+    							#end
+							</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">起息方式</th>
+							<td>
+								#if($!productVo.activeType == 1)满标起息
+    							#elseif(($!productVo.activeType == 2))投资成功起息
+								#else 指定时间
+    							#end
+							</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">活动信息</th>
+							<td>$!{productVo.activityInfo}</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">产品详情</th>
+							<td>$!{productVo.detailInfo}</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">产品创建时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!productVo.createTime)</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">产品募集截至时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!productVo.purchaseDeadline)</td>
+						</tr>
+						
+						<tr>
+							<th width="150" height="30">PC端购买落地页</th>
+							<td>$!{productVo.purchaseLanding}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">移动端购买落地页</th>
+							<td>$!{productVo.purchaseLandingM}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">预计开始计息时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!productVo.activeTime)</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">投资人数</th>
+							<td>$!{productVo.userCount} 人</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">投资进度</th>
+							<td>
+								#set($result=${productVo.soldRate} * 100)
+								$!{result}%
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">是否为拆单信托</th>
+							<td>#if($!productVo.isSplit == 0) 不是  #else 是 #end</td>
+						</tr>
+						#if($!{productVo.isSplit}==1 && $!{productVo.prdType} != 0 )
+						<tr>
+							<th width="150" height="30">合同甲方姓名</th>
+							<td>$!{productVo.contractName}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">合同甲方省份证号</th>
+							<td>$!{productVo.contractId}</td>
+						</tr>
+						#end
+						#if($!productVo.prdType != 0 ||($!productVo.prdType == 0 && $!productVo.operationType==1))
+							<tr>
+    							<th width="150" height="30">账户名称</th>
+    							<td>$!{productPayAccountVo.accountName}</td>
+    						</tr>
+							<tr>
+    							<th width="150" height="30">收款账号</th>
+    							<td>$!{productPayAccountVo.accountNo}</td>
+    						</tr>
+							<tr>
+    							<th width="150" height="30">开户银行</th>
+    							<td>$!{productPayAccountVo.bankName}</td>
+    						</tr>
+							<tr>
+    							<th width="150" height="30">打款备注</th>
+    							<td>$!{productPayAccountVo.payRemark}</td>
+    						</tr>
+						#end	
+						
+						<tr>
+							<th width="150" height="30">产品状态</th>
+							<td>
+								#if($!productVo.status == 1)正常
+    							#elseif($!productVo.status == 2) 停售
+    							#elseif($!productVo.status == 3) 已删除
+								#elseif($!productVo.status == 4) 满标
+							    #else 撤标
+    							#end
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>							
+				<center>
+    			    <div class="col-sm-10">
+    					<button type="button" class="btn btn-default" onclick="window.history.back()" >返回</button>&nbsp;&nbsp;
+    			    </div>
+				</center>
+			</div>
+    		
+		</div><!-- table-responsive END-->
+		
+      </div>
+	  
+      <div class="row">
+		 #parse("common/footer.vm")
+      </div>
+	  
+    </div>
+	
+  </body>
+</html>

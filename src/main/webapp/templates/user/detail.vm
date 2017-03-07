@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>金融加后台管理--后台用户详情</title>
+    
+    </head>
+  <body>
+
+    #parse("common/header.vm")
+	<script src="/manage/resources/js/admin/user.js"></script>
+
+    <div class="container-fluid">
+      <div class="row">
+		
+		#parse("common/nav.vm")
+        
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+			<h3 class="page-header">用户管理 &nbsp; > &nbsp; 后台用户详情</h3>
+		
+			########### Tabs ################
+			<ul class="nav nav-tabs">
+    		  <li id="tabManagerUser" style="margin-left:30px;"><a href="/manage/usr/list">后台用户</a></li>
+			  <li id="tabWebsiteCfp"><a href="/manage/usr/website/list?type=1">理财师</a></li>
+			  <li id="tabWebsiteInvest"><a href="/manage/usr/website/list?type=0">投资者</a></li>
+    		</ul>
+			<br>
+				
+			#############center content##############
+			  <div class="table-responsive" style="min-height:360px;">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<th width="150" height="30">用户ID</th>
+							<td>$!{userMngVo.id}</td>
+						</tr>						
+						<tr>
+							<th width="150" height="30">登录ID</th>
+							<td>$!{userMngVo.loginId}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">真实姓名</th>
+							<td>$!{userMngVo.name}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">电子邮件</th>
+							<td>$!{userMngVo.email}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">手机号码</th>
+							<td>$!{userMngVo.mobile}</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">注册时间</th>
+							<td>$!date.format('yyyy-MM-dd HH:mm:ss',$!userMngVo.createTime)</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户状态</th>
+							<td>
+								#if($!userMngVo.status == 1) <font color="green">正常</font>  
+								#elseif($!userMngVo.status == 2) <font color="red">禁用</font>
+								#else <font color="red">已删除</font>  
+								#end
+							</td>
+						</tr>
+						<tr>
+							<th width="150" height="30">用户角色</th>
+							<td>
+								#if($!{ADMIN}) <font color="black">系统管理员</font>&nbsp;&nbsp;#end
+								#if($!{OPERATE}) <font color="black">运营人员</font>&nbsp;&nbsp;#end
+								#if($!{FINAN}) <font color="black">财务人员</font>&nbsp;&nbsp;#end
+								#if($!{MARKET}) <font color="black">市场人员</font>&nbsp;&nbsp;#end
+								#if($!{SERVICE}) <font color="black">客服人员</font>&nbsp;&nbsp;#end
+								#if($!{TECH}) <font color="black">技术人员</font>&nbsp;&nbsp;#end
+								
+							</td>
+						</tr>
+					</tbody>
+				</table>							
+			  </div>
+			  
+			  <center>
+				<div>
+					<button type="button" class="btn btn-default" id="btnBack" onclick="javascript:history.back(-1);" name="btnBack">返回</button>
+				</div>
+			  </center>
+			
+			
+			#############center content##############
+			
+		</div>
+		
+      </div>
+	  
+      <div class="footer">
+		 #parse("common/footer.vm")
+      </div>
+    </div>
+  </body>
+</html>

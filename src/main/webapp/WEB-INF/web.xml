@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	  <display-name>Archetype Created Web Application</display-name>
+	  
+	  <error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	  </error-page>
+	  
+	  <welcome-file-list>
+	    <welcome-file>index.html</welcome-file>
+	    <welcome-file>index.jsp</welcome-file>
+	  </welcome-file-list>
+	  <servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>*.css</url-pattern>
+	    <url-pattern>*.js</url-pattern>
+	    <url-pattern>*.gif</url-pattern>
+	    <url-pattern>*.jpg</url-pattern>
+	    <url-pattern>*.png</url-pattern>
+	    <url-pattern>*.html</url-pattern>
+	    <url-pattern>*.swf</url-pattern>
+	    <url-pattern>*.ico</url-pattern>
+	  </servlet-mapping>
+  
+	<filter>
+		<filter-name>AppInitFilter</filter-name>
+		<filter-class>com.imm.webbase.AppInitFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AppInitFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/config/admin/application-context.xml</param-value>
+    </context-param>
+    <context-param>
+		<param-name>appConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/config/admin/app.properties</param-value>
+	</context-param>
+  
+  	<!-- Spring Security 权限框架 -->  
+  	<filter>  
+        <filter-name>springSecurityFilterChain</filter-name>  
+        <filter-class>  
+            org.springframework.web.filter.DelegatingFilterProxy  
+        </filter-class>  
+   	</filter>  
+    <filter-mapping>  
+        <filter-name>springSecurityFilterChain</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
+    
+  	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  	</listener>
+  	
+  	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+  
+  <servlet>
+    <servlet-name>SpringApp</servlet-name>
+    <servlet-class>com.imm.webbase.CustomDispatcherServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringApp</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

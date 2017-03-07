@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+			  <li id="tabLiveIndex" style="margin-left:30px;"><a href="/manage/livedaily/listview">资金总览</a></li>
+ 			  <li id="tabLiveDailyFund" ><a href="/manage/livedaily/list/fund">资金日报</a></li>
+ 			  <li id="tabLiveDailyAsset"><a href="/manage/livedaily/list/asset">资产日报</a></li>	  
+</ul>

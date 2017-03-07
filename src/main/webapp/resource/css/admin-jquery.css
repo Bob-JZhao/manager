@@ -1,0 +1,436 @@
+.admin-table-search-title {
+	display: inline;
+    float: right;
+    margin: 3px 10px 0 0;
+}
+
+.admin-table-title{
+	float: left;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0 10px;
+	
+}
+
+.admin-table-search-input{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #7E9DB9;
+    display: inline;
+    float: left;
+    font-family: STHeiti,SimSun;
+    font-size: 12px;
+    padding: 1px 2px;
+    text-align: left;
+}
+
+/* table.dataTable tbody tr{
+	border-style: solid;
+	border-width: 0px 0px 1px 0px;
+	color: #666666;
+} */
+
+
+.ui-combobox {
+    font-family: STHeiti,SimSun;
+    font-size: 12px;
+}
+.ui-combobox-cur {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    cursor: pointer;
+    float: left;
+    height: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    padding: 0 0 0 2px;
+    text-align: left;
+}
+.ui-orient-selector {
+    position: relative;
+    width: 640px;
+}
+
+.ui-orient-selector-head {
+    background: none repeat scroll 0 0 #C7DEED;
+    border-color: #A3CDE9;
+    border-style: solid;
+    border-width: 1px 1px 0;
+    height: 27px;
+    line-height: 27px;
+    padding-left: 10px;
+}
+
+.ui-orient-selector-head .ui-combobox, .ui-orient-selector-head span {
+    float: left;
+}
+
+.list-table-head {
+    background: none repeat scroll 0 0 #C7DEED;
+    border-top: 1px solid #A3CDE9;
+    color: #35608C;
+    height: 28px;
+}
+
+.ui-slotsizelist {
+    width: 790px;
+}
+
+.ui-slotsizelist .getcode-slotlist .list-table-head {
+    margin-left: -121px;
+    position: absolute;
+    width: 589px;
+}
+
+.ui-orient-selector-head .ui-combobox {
+    margin: 3px 5px 0 0;
+}
+
+.ui-orient-selector-head .ui-combobox, .ui-orient-selector-head span {
+    float: left;
+}
+
+.ui-combobox {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #7E9DB9;
+    font-family: STHeiti,SimSun;
+    font-size: 12px;
+    padding: 1px;
+}
+
+.ui-combobox-cur {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    cursor: pointer;
+    float: left;
+    height: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    padding: 0 0 0 2px;
+    text-align: left;
+}
+
+.ui-combobox-layer {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #EDBB72;
+    font-family: STHeiti,SimSun;
+    font-size: 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 1px 1px 0;
+    position: absolute;
+    text-align: left;
+    z-index: 1002;
+}
+
+.ui-combobox-item {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: #666666;
+    cursor: pointer;
+    height: 18px;
+    line-height: 18px;
+    margin: 0 0 1px;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+.ui-combobox-item-hover {
+    background: url("../images/InlineSprites.png") repeat-x scroll 0 0 #FFEDC9;
+    border: 1px solid #FAD9AC;
+}
+
+.ui-combobox-item-selected {
+    background: url("../images/InlineSprites.png") repeat-x scroll 0 -18px #FFDA9C;
+    border: 1px solid #EDBB73;
+}
+
+.ui-combobox-btn {
+    background: url("../image/BlockSprites.png") no-repeat scroll 0 -316px #7E9DB9;
+    cursor: pointer;
+    float: right;
+    height: 16px;
+    width: 16px;
+}
+
+
+
+.ui-combobox-active .ui-combobox-btn {
+    background-position: -32px -316px;
+}
+
+
+.ui-combobox-active, .ui-combobox-hover {
+    border: 1px solid #EDBB72;
+}
+.ui-combobox-hover .ui-combobox-btn {
+    background-position: -16px -316px;
+}
+
+.ui-orient-selector-body {
+    border: 1px solid #CCCCCC;
+    overflow: hidden;
+}
+
+.ui-orient-selector-module {
+}
+
+.ui-orient-sel-region .ui-orient-sel-llist {
+    width: 350px;
+}
+
+.ui-orient-sel-llist {
+    float: left;
+    margin-left: -1px;
+    width: 300px;
+}
+
+.ui-table-head {
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+
+.ui-table-head table table {
+    border-collapse: collapse;
+}
+
+.ui-table-thcntr {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-left: 1px solid #F6F6F6;
+    border-top: 1px solid #F6F6F6;
+    height: 27px;
+    overflow: hidden;
+}
+
+.ui-table-thtext {
+    display: inline;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin: 0 5px;
+}
+
+.ui-orient-sel-listentry {
+    color: #3377AA;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ui-orient-sel-rlist .ui-table-head th, .ui-orient-sel-llist .ui-table-head th {
+    border-top: 0 none;
+}
+
+.ui-table-head th {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 0 0 0 1px;
+    color: #666666;
+    font-weight: 700;
+}
+
+
+
+.ui-orient-sel-regionlb, .ui-orient-sel-regionrb {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 0 1px;
+    height: 174px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    width: 298px;
+}
+.ui-orient-sel-region .ui-orient-sel-regionlb {
+    width: 348px;
+}
+
+.ui-orient-sel-regioncol {
+    border-bottom: 1px solid #CCCCCC;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 4px;
+    width: 82px;
+}
+
+element.style {
+    height: 28px;
+    overflow: hidden;
+    width: 77px;
+}
+
+.ui-orient-sel-regioncol input {
+    border: 0 none;
+    padding: 0;
+}
+
+.ui-orient-sel-regioncol label {
+    padding-left: 2px;
+    border : 0px;
+}
+
+.ui-orient-gticon {
+    background: url("../image/BlockSprites.png") repeat scroll -33px -455px transparent;
+    float: left;
+    height: 11px;
+    margin: 90px 0 0 12px;
+    overflow: hidden;
+    width: 15px;
+}
+
+.ui-orient-sel-region .ui-orient-sel-rlist {
+    width: 250px;
+}
+.ui-orient-sel-rlist {
+    float: right;
+    margin-right: -1px;
+    width: 300px;
+}
+
+.ui-table-head {
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.ui-table-head-row {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+}
+
+caption, th {
+    text-align: left;
+}
+
+
+
+.ui-orient-sel-region .ui-orient-sel-regionrb {
+    width: 248px;
+}
+
+.ui-orient-sel-regionrb {
+    border-left: 1px solid #CCCCCC;
+}
+
+.ui-orient-sel-regionlb, .ui-orient-sel-regionrb {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 0 1px;
+    height: 174px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    width: 298px;
+}
+.ui-orient-sel-regionrb .ui-table-row {
+    border-bottom: 1px solid #CCCCCC;
+}
+.ui-table-row {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 0 1px 1px;
+}
+
+.ui-orient-sel-regionrb .ui-table-tdcntr {
+    position: relative;
+}
+
+.ui-table-tdcntr {
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+.ui-orient-sel-province {
+    color: #000000;
+    font-weight: bold;
+}
+
+
+
+.ui-orient-selector-foot {
+    background: none repeat scroll 0 0 #C7DEED;
+    border-color: #A3CDE9;
+    border-style: solid;
+    border-width: 0 1px 1px;
+    clear: left;
+    height: 24px;
+    padding: 3px 0 0 10px;
+}
+
+.form-row .ui-combobox, .form-row .ui-button, .form-row .ui-text, .form-row .ui-textarea, .form-row .ui-buttonmenu {
+    margin-top: 2px;
+}
+
+.ui-button {
+    background: none repeat scroll 0 0 transparent;
+    cursor: pointer;
+    text-align: center;
+}
+
+.ui-button, .ui-button-label {
+    background-image: url("../image/BlockSprites.png");
+    display: inline;
+    float: left;
+}
+
+.ui-button-bg-left {
+    background-image: url("../image/BlockSprites.png");
+    float: left;
+    height: 20px;
+    width: 5px;
+}
+
+.ui-button-label {
+    background-position: right 0;
+    color: #35608C;
+    font-family: STHeiti,SimSun;
+    font-size: 14px;
+    font-weight: 700;
+    height: 20px;
+    line-height: 21px;
+    overflow: hidden;
+    padding: 0 10px 0 5px;
+}
+
+.ui-table-tdcntr {
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+.ui-orient-selector-show{
+	display: block;
+}
+
+.ui-orient-selector-none{
+	display: none;
+}
+
+.ui-orient-sel-citylayer {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #EDBB72;
+    height: 194px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    top: 58px;
+    width: 95px;
+    z-index: 10000;
+}
+
+.ui-orient-sel-citylayer p {
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    padding-left: 4px;
+    white-space: nowrap;
+}
+
+.ui-orient-sel-citylayer p {
+    line-height: 22px;
+    white-space: nowrap;
+}
+
